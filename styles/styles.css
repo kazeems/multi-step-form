@@ -1,0 +1,412 @@
+body {
+  background-color: #EFF5FE;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px;
+  background: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+}
+
+.content-area {
+  width: 800px;
+  height: 500px;
+  display: flex;
+  flex-direction: row;
+}
+
+.content-area .sidebar {
+  width: 180px;
+  background-image: url('/assets/images/bg-sidebar-desktop.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  border-radius: 5px;
+  padding: 30px 25px;
+}
+
+.sidebar .item {
+  display: flex;
+  flex-direction: row;
+}
+
+.item .number-icon {
+  height: 20px;
+  width: 20px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 500;
+  border: 2px solid #C6E0FA;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 20px;
+  margin: 20px 10px 20px 0px;
+}
+
+.item .active {
+  color: #162651;
+  background: #C6E0FA;
+}
+
+
+.item .step {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.step span {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #C6E0FA;
+  font-weight: light;
+}
+
+span.step-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-top: 2px;
+}
+
+/* .form-area .footer, */
+/* .personal-info, */
+.select-plan,
+.addons,
+.form-summary,
+.form-finish {
+  display: none;
+}
+
+.form-area {
+  margin-top: 20px;
+  margin-left: 90px;
+  color: #233560;
+}
+
+.form-area .title {
+  margin-bottom: 30px;
+}
+
+.form-area .title h2 {
+  padding: 0;
+  margin-bottom: 2px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-area .title span {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(148, 145, 145);
+}
+
+.form-element {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.form-element .label-el {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.label-el label {
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.label-el span {
+  color: red;
+  font-weight: bolder;
+}
+
+.form-element input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #c7ced6;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.previous_btn,
+.next_btn {
+  width: 90px;
+  height: 35px;
+  margin-top: 50px;
+  font-size: 12px;
+  background-color: #2F4A87;
+  color: #FFFFFF;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.previous_btn {
+  background: none;
+  color: #2F4A87;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.plans {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.plans .plan-option {
+  width: 120px;
+  height: 150px;
+  border: 1px solid rgb(194, 192, 192);
+  margin-right: 20px;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  cursor: pointer;
+}
+
+
+.plans .plan-option:last-child {
+  margin-right: 0;
+}
+
+.plans .selected {
+  background: #F8F9FE;
+  border: 1px solid #000;
+}
+
+.plans .plan-option:hover {
+  border: 1px solid #000;
+}
+
+.icon img {
+  height: 35px;
+  margin: 10px;
+}
+
+.plan-option .plan-details {
+  margin-left: 10px;
+}
+
+.plan-details p {
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 35px;
+  margin-bottom: 0;
+}
+
+.plan-details span {
+  font-size: 12px;
+  font-weight: 500;
+  color: grey;
+}
+
+.toggle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+  color: #2F4A87;
+  background: #F8F9FE;
+  font-weight: 600;
+}
+
+/* Toggle Switch */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 22px;
+  margin: 0 25px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #2F4A87;
+  ;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: #2F4A87;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2F4A87;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* Toggle switch end */
+
+.add-on {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 15px;
+  border: 1px solid #2F4A87;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background: #F8F9FE;
+}
+
+.add-on .addon-detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-on input {
+  height: 20px;
+  width: 20px;
+  margin-right: 25px;
+}
+
+.addon-title p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #2F4A87;
+}
+
+.addon-detail .addon-title {
+  font-weight: 500;
+  color: #acb2b8;
+  font-size: 13px;
+}
+
+.add-on .price {
+  margin-left: 40px;
+  font-size: 13px;
+  color: rgb(44, 44, 116);
+  font-weight: 600;
+}
+
+.summary-content {
+  width: 400px;
+  background: #F8F9FE;
+}
+
+.summary-content .wrapper {
+  padding: 15px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #e3e5e8;
+}
+
+.summary-content h3 {
+  margin: 0;
+}
+
+.selected-plan,
+.selected-addons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selected-addons h4 {
+  color: #6f7074;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.total-price {
+  color: #6f7074;
+  padding: 0 15px;
+  background: #FFFFFF;
+}
+
+.total-price h5 {
+  font-weight: 500;
+}
+
+.summary-content span {
+  font-size: 14px;
+  color: #162651;
+  font-weight: 700;
+}
+
+.selected-addons span {
+  font-weight: 500;
+}
+
+.total-price span {
+  font-size: 20px;
+  color: blue;
+  font-weight: 700;
+}
+
+.form-finish {
+  margin-top: 25%;
+  margin-left: auto;
+  text-align: center;
+  width: 400px;
+}
+
+.attribution p {
+  position: absolute;
+  top: 95%;
+  right: 50%;
+  padding: 0 0 10px 0;
+}
