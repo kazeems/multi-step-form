@@ -3,9 +3,19 @@ let children = parent.querySelectorAll('.form-content');
 let formEnd = document.querySelector('.form-finish');
 const prevBtn = document.querySelector('.js-back-btn');
 const nextBtn = document.querySelector('.js-next-btn');
+const toggleCheck = document.querySelector('.js-toggle-switch');
 let userName = document.getElementById('name');
 let userEmail = document.getElementById('email');
 let userPhone = document.getElementById('phone');
+let addonElHTML = '';
+let totalAmount = 0;
+let planPrices = {
+  arcade: 9,
+  advance: 12,
+  pro: 15,
+  duration: 'mo',
+};
+
 let submittedData = {
   previousStep: 0,
   nextStep: 1,
@@ -32,7 +42,6 @@ nextBtn.addEventListener('click', () => {
   const previous = submittedData.previousStep + 1;
   const nextSt = submittedData.nextStep + 1;
 
-  console.log(previous);
   if (nextSt !== children.length) {
     nextPage(nextSt, previous);
   } else {
@@ -45,7 +54,9 @@ nextBtn.addEventListener('click', () => {
     prevBtn.style.opacity = 0;
     prevBtn.style.pointerEvents = 'none';
 
+
     formEnd.style.display = 'block';
+
   }
 
 
@@ -82,6 +93,28 @@ function nextPage(nextElStep, prevElStep) {
   previousStepIconHTML.classList.remove('active');
   nextStepIconHTML.classList.add('active');
 
+  if (NextPageHTML.classList.contains('form-summary')) {
+    let totalData = calculateSummary();
+    const htmol = document.querySelector('.summary-content');
+    document.querySelector('.summary-content').innerHTML += `<div class="wrapper">
+      <div class="selected-plan">
+        <div class="plan-name">
+          <h3>${submittedData.planSelected.planName}</h3>
+          <a href="">Change</a>
+        </div>
+        <span class="plan-price">$${submittedData.planSelected.planPrice}/mo</span>
+      </div>
+      <hr class="divider">
+      ${totalData[0]}
+    </div>
+    <div class="selected-addons total-price">
+      <div class="addon-name">
+        <h5>Total (per month)</h5>
+      </div>
+      <span class="plan-price">+$${totalData[1]}/mo</span>
+    </div>
+    `;
+  }
 
   prevPageHTML.style.display = 'none';
   prevPageHTML.style.pointerEvents = 'none'
@@ -90,21 +123,10 @@ function nextPage(nextElStep, prevElStep) {
   prevBtn.style.display = 'block';
   prevBtn.style.opacity = 100;
 
-}
 
 
-function showStep(nextStep, previousStep) {
+  getData();
 
-  // nextBtn.addEventListener('click', () => {
-  nextPage(nextStep, previousStep);
-
-
-  // if (nextStep !== (children.length)) {
-
-  // }
-
-
-  // })
 }
 
 // nextBtn.addEventListener('click', () => {
@@ -112,6 +134,171 @@ function showStep(nextStep, previousStep) {
 
 //   nextPage(submittedData.step);
 // });
+
+
+
+function getData() {
+  let chosenAddon = [];
+  let addonItem = {};
+  let planValue = '';
+  const elements = document.querySelectorAll('.plan-option');
+
+  elements.forEach(element => {
+    if (element.classList.contains('selected')) {
+      planValue = element.querySelector('.plan-details');
+    }
+
+    element.addEventListener('click', () => {
+      elements.forEach(el => el.classList.remove('selected'));
+
+      element.classList.add('selected');
+
+      planValue = element.querySelector('.plan-details');
+
+    });
+
+  });
+
+  const allAddons = document.querySelectorAll('.add-on');
+
+  allAddons.forEach(addon => {
+    const checkBoxes = addon.querySelectorAll('.checkbox-addon');
+
+    checkBoxes.forEach((checkBox) => {
+      checkBox.addEventListener('click', () => {
+        if (checkBox.checked === true) {
+          checkBox.checked = false;
+        } else if (checkBox.checked === false) {
+          checkBox.checked = true;
+          const addonDetails = addon.querySelector('.ad-name').innerText;
+          const addonPrice = addon.querySelector('.price').innerText;
+
+          const addonPriceArray = Array.from(addonPrice);
+
+          addonItem = {
+            name: addonDetails,
+            price: addonPriceArray[2],
+          }
+
+          chosenAddon.push(addonItem);
+
+
+        }
+      });
+    });
+
+    submittedData.selectedAddons = chosenAddon;
+  // console.log(submittedData.selectedAddons);
+
+  // if (checkBox.checked === true) {
+    // })
+
+
+    // checkBox.addEventListener('click', () => {
+    //   allAddons.forEach(el => el.classList.remove('selected'));
+
+    //   element.classList.add('selected');
+
+    //   planValue = element.querySelector('.plan-details');
+
+    // });
+
+  });
+
+  submittedData.planSelected = {
+    planName: planValue.dataset.planName,
+    planPrice: planValue.dataset.planPrice,
+  }
+
+  submittedData.data = {
+    userName: userName.value,
+    emailAddress: userEmail.value,
+    phoneNumber: userPhone.value,
+  }
+}
+
+
+function calculateSummary() {
+
+  submittedData.selectedAddons.forEach((addonEl) => {
+    addonElHTML += `
+  <div class="selected-addons">
+    <div class="addon-name">
+      <h4>${addonEl.name}</h4>
+    </div>
+    <span class="plan-price">+$${addonEl.price}/mo</span>
+  </div>
+  `;
+
+    totalAmount = totalAmount + Number(addonEl.price);
+
+  });
+
+  totalAmount += Number(submittedData.planSelected.planPrice);
+
+
+  return [addonElHTML, totalAmount];
+}
+
+toggleCheck.addEventListener('click', () => {
+  planPrices = {
+    arcade: 9,
+    advance: 12,
+    pro: 15,
+    duration: 'mo',
+  }
+
+  if (toggleCheck.checked === true) {
+    planPrices = {
+      arcade: 100,
+      advance: 120,
+      pro: 150,
+      duration: 'yr',
+    };
+  }
+
+  renderPlans(planPrices);
+});
+
+function renderPlans(prices) {
+
+  let plansHTML = `
+    <div class="plan-option selected">
+      <div class="icon">
+        <img src="assets/images/icon-arcade.svg" alt="arcade">
+      </div>
+      <div class="plan-details" data-plan-name="Acarde" data-plan-price="9.0">
+        <p>Arcade</p>
+        <span>$${prices.arcade}/${prices.duration}</span>
+      </div>
+    </div>
+    <div class="plan-option">
+      <div class="icon">
+        <img src="assets/images/icon-advanced.svg" alt="arcade">
+      </div>
+      <div class="plan-details" data-plan-name="Advanced" data-plan-price="12.0">
+        <p>Advanced</p>
+        <span>$${prices.advance}/${prices.duration}/mo</span>
+      </div>
+    </div>
+    <div class="plan-option">
+      <div class="icon">
+        <img src="assets/images/icon-pro.svg" alt="pro">
+      </div>
+      <div class="plan-details" data-plan-name="Pro" data-plan-price="15.0">
+        <p>Pro</p>
+        <span>$${prices.pro}/${prices.duration}/mo</span>
+      </div>
+    </div>
+  `;
+
+  document.querySelector('.plans').innerHTML = plansHTML;
+}
+
+
+
+renderPlans(planPrices)
+
 
 
 
