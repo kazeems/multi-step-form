@@ -3,6 +3,14 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* .form-area .footer, */
+/* .personal-info, */
+.form-finish,
+.form-summary,
+.extra-addons,
+.select-plan {
+  display: none;
+}
 .container {
   position: absolute;
   top: 50%;
@@ -73,15 +81,6 @@ span.step-title {
   font-weight: 700;
   color: #FFFFFF;
   margin-top: 2px;
-}
-
-/* .form-area .footer, */
-/* .personal-info, */
-.select-plan,
-.addons,
-.form-summary,
-.form-finish {
-  display: none;
 }
 
 .form-area {

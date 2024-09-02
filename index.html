@@ -16,28 +16,28 @@
       <div class="content-area">
         <div class="sidebar">
           <div class="item">
-            <div class="number-icon active">1</div>
+            <div class="number-icon js-step-1 active">1</div>
             <div class="step">
               <span>step 1</span>
               <span class="step-title">your info</span>
             </div>
           </div>
           <div class="item">
-            <div class="number-icon">2</div>
+            <div class="number-icon js-step-2">2</div>
             <div class="step">
               <span>step 2</span>
               <span class="step-title">Select plan</span>
             </div>
           </div>
           <div class="item">
-            <div class="number-icon">3</div>
+            <div class="number-icon js-step-3">3</div>
             <div class="step">
               <span>step 3</span>
               <span class="step-title">Add-ons</span>
             </div>
           </div>
           <div class="item">
-            <div class="number-icon">4</div>
+            <div class="number-icon js-step-4">4</div>
             <div class="step">
               <span>step 4</span>
               <span class="step-title">Summary</span>
@@ -46,7 +46,7 @@
         </div>
         <div class="form-area">
           <!-- Personal Info -->
-          <div class="personal-info">
+          <div class="personal-info form-content">
             <div class="title">
               <h2>Personal info</h2>
               <span class="title-instruction">Please provide your name, email address, and phone number.</span>
@@ -55,30 +55,29 @@
               <div class="form-element">
                 <div class="label-el">
                   <label for="phone">Name</label>
-                  <!-- <span class="error">This field is required</span> -->
+                  <span class="error-name"></span>
                 </div>
-                <input type="text" name="name" placeholder="e.g. Stephen King">
+                <input type="text" id="name" placeholder="e.g. Stephen King" required>
               </div>
               <div class="form-element">
                 <div class="label-el">
                   <label for="phone">Email Address</label>
-                  <span class="error"></span>
+                  <span class="error-email"></span>
                 </div>
-                <input type="email" name="email" placeholder="e.g. stephenking@lorem.com">
+                <input type="email" id="email" placeholder="e.g. stephenking@lorem.com" required>
               </div>
               <div class="form-element">
                 <div class="label-el">
                   <label for="phone">Phone Number</label>
-                  <span class="error"></span>
+                  <span class="error-phone"></span>
                 </div>
-                <input type="tel" placeholder="e.g. +1 234 567 890">
+                <input id="phone" type="tel" placeholder="e.g. +1 234 567 890" required>
               </div>
             </div>
           </div>
           <!-- Personal Info End -->
-  
           <!-- Select Plan -->
-          <div class="select-plan">
+          <div class="select-plan form-content" data-position="2">
             <div class="title">
               <h2>Select your plan</h2>
               <span class="title-instruction">You have the option of monthly or yearly billing.</span>
@@ -125,7 +124,7 @@
           </div>
           <!-- Select Plan End -->
           <!-- Addons -->
-          <div class="addons">
+          <div class="extra-addons form-content">
             <div class="title">
               <h2>Pick add-ons</h2>
               <span class="title-instruction">Add-ons help enhance your gaming experience.</span>
@@ -140,104 +139,96 @@
                         Online service
                       </p>
                       <span class="addon-description">Access to multiplayer games</span>
-                      </div>
-                      </div>
-                      <span class="price">+$1/mo</span>
-                      </div>
-                      <div class="add-on">
-                        <input type="checkbox" checked>
-                        <div class="addon-detail">
-                          <div class="addon-title">
-                            <p>
-                              Large storage
-                            </p>
-                            <span class="addon-description">Extra 1TB of cloud save</span>
-                          </div>
-                        </div>
-                        <span class="price">+$2/mo</span>
-                      </div>
-                      <div class="add-on">
-                        <input type="checkbox">
-                        <div class="addon-detail">
-                          <div class="addon-title">
-                            <p>Customizable Profile</p>
-                            <span class="addon-description">Custom theme on your profile</span>
-                          </div>
-                        </div>
-                        <span class="price">+$2/mo</span>
-                      </div>
-                      </div>
-                      </div>
-                      </div>
-                      <!-- Addons End -->
-                      <!-- Summary -->
-                      <div class="form-summary">
-                        <div class="title">
-                          <h2>Finishing up</h2>
-                          <span class="title-instruction">Double-check everything looks OK before confirming.</span>
-                        </div>
-                        <div class="form">
-                          <div class="summary-content">
-                            <div class="wrapper">
-                              <div class="selected-plan">
-                                <div class="plan-name">
-                                  <h3>Arcade (Monthly)</h3>
-                                  <a href="">Change</a>
-                                </div>
-                                <span class="plan-price">$4/mo</span>
-                              </div>
-                              <hr class="divider">
-                              <div class="selected-addons">
-                                <div class="addon-name">
-                                  <h4>Online Service</h4>
-                                </div>
-                                <span class="plan-price">+$1/mo</span>
-                              </div>
-                              <div class="selected-addons">
-                                <div class="addon-name">
-                                  <h4>Larger storage</h4>
-                                </div>
-                                <span class="plan-price">+$1/mo</span>
-                              </div>
-                            </div>
-                            <div class="selected-addons total-price">
-                              <div class="addon-name">
-                                <h5>Total (per month)</h5>
-                              </div>
-                              <span class="plan-price">+$12/mo</span>
-                            </div>
-                          </div>
+                    </div>
+                    </div>
+                    <span class="price">+$1/mo</span>
+                    </div>
+                    <div class="add-on">
+                      <input type="checkbox" checked>
+                      <div class="addon-detail">
+                        <div class="addon-title">
+                          <p>
+                            Large storage
+                          </p>
+                          <span class="addon-description">Extra 1TB of cloud save</span>
                         </div>
                       </div>
-                      <!-- Summary End -->
-                      <!-- Thank you -->
-                      <div class="form-finish">
-                        <div class="icon-mark">
-                          <img src="assets/images/icon-thank-you.svg">
-                        </div>
-                        <div class="complete-message">
-                          <h3>Thank you!</h3>
-                          <p>Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support,
-                            please feel free to email us at ethicalkazz@gmail.com</p>
+                      <span class="price">+$2/mo</span>
+                    </div>
+                    <div class="add-on">
+                      <input type="checkbox">
+                      <div class="addon-detail">
+                        <div class="addon-title">
+                          <p>Customizable Profile</p>
+                          <span class="addon-description">Custom theme on your profile</span>
                         </div>
                       </div>
-                      <!-- Thank you -->
-                      <div class="footer">
-                        <button type="button" class="previous_btn js-back-btn">Go Back</button>
-                        <button type="button" class="next_btn js-next-btn">Next Step</button>
-                      </div>
-                      </div>
-                      </div>
-                      </div>
-  
-    <div class="attribution">
-      <p class="p-attribution">Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend
-          Mentor</a>.
-        Coded by <a href="#">Kazeem Seidu</a>.
-      </p>
-      </div>
+                      <span class="price">+$2/mo</span>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    <!-- Addons End -->
+                    <!-- Summary -->
+          <div class="form-summary  form-content">
+            <div class="title">
+              <h2>Finishing up</h2>
+              <span class="title-instruction">Double-check everything looks OK before confirming.</span>
+            </div>
+            <div class="form">
+              <div class="summary-content">
+                <div class="wrapper">
+                  <div class="selected-plan">
+                    <div class="plan-name">
+                      <h3>Arcade (Monthly)</h3>
+                      <a href="">Change</a>
+                    </div>
+                    <span class="plan-price">$4/mo</span>
+                  </div>
+                  <hr class="divider">
+                  <div class="selected-addons">
+                    <div class="addon-name">
+                      <h4>Online Service</h4>
+                    </div>
+                    <span class="plan-price">+$1/mo</span>
+                  </div>
+                  <div class="selected-addons">
+                    <div class="addon-name">
+                      <h4>Larger storage</h4>
+                    </div>
+                    <span class="plan-price">+$1/mo</span>
+                  </div>
+                </div>
+                <div class="selected-addons total-price">
+                  <div class="addon-name">
+                    <h5>Total (per month)</h5>
+                  </div>
+                  <span class="plan-price">+$12/mo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Summary End -->
+          <!-- Thank you -->
+          <div class="form-finish  form-content">
+            <div class="icon-mark">
+              <img src="assets/images/icon-thank-you.svg">
+            </div>
+            <div class="complete-message">
+              <h3>Thank you!</h3>
+              <p>Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support,
+                please feel free to email us at ethicalkazz@gmail.com</p>
+            </div>
+          </div>
+          <!-- Thank you -->
+          <div class="footer">
+            <button type="submit" class="previous_btn js-back-btn">Go Back</button>
+            <button type="button" class="next_btn js-next-btn">Next Step</button>
+            </div>
+            </div>
+            </div>
+            </div>
   </div>
-  
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
