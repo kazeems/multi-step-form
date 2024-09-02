@@ -9,13 +9,6 @@ let userEmail = document.getElementById('email');
 let userPhone = document.getElementById('phone');
 let addonElHTML = '';
 let totalAmount = 0;
-let planPrices = {
-  arcade: 9,
-  advance: 12,
-  pro: 15,
-  duration: 'mo',
-};
-
 let submittedData = {
   previousStep: 0,
   nextStep: 1,
@@ -136,6 +129,85 @@ function nextPage(nextElStep, prevElStep) {
 // });
 
 
+function calculateSummary() {
+
+  submittedData.selectedAddons.forEach((addonEl) => {
+    addonElHTML += `
+  <div class="selected-addons">
+    <div class="addon-name">
+      <h4>${addonEl.name}</h4>
+    </div>
+    <span class="plan-price">+$${addonEl.price}/mo</span>
+  </div>
+  `;
+
+    totalAmount = totalAmount + Number(addonEl.price);
+
+  });
+
+  totalAmount += Number(submittedData.planSelected.planPrice);
+
+
+  return [addonElHTML, totalAmount];
+}
+
+toggleCheck.addEventListener('click', () => {
+  let planPrices = {};
+  if (toggleCheck.checked === false) {
+    planPrices = {
+      arcade: 9,
+      advance: 12,
+      pro: 15,
+      duration: 'mo',
+    };
+  } else {
+    planPrices = {
+      arcade: 100,
+      advance: 120,
+      pro: 150,
+      duration: 'yr',
+    };
+
+    getData();
+  }
+
+
+  renderPlans(planPrices);
+});
+
+function renderPlans(prices) {
+  let plansHTML = `
+    <div class="plan-option selected">
+      <div class="icon">
+        <img src="assets/images/icon-arcade.svg" alt="arcade">
+      </div>
+      <div class="plan-details" data-plan-name="Acarde" data-plan-price="${prices.arcade}">
+        <p>Arcade</p>
+        <span>$${prices.arcade}/${prices.duration}</span>
+      </div>
+    </div>
+    <div class="plan-option">
+      <div class="icon">
+        <img src="assets/images/icon-advanced.svg" alt="arcade">
+      </div>
+      <div class="plan-details" data-plan-name="Advanced" data-plan-price="${prices.advance}">
+        <p>Advanced</p>
+        <span>$${prices.advance}/${prices.duration}/mo</span>
+      </div>
+    </div>
+    <div class="plan-option">
+      <div class="icon">
+        <img src="assets/images/icon-pro.svg" alt="pro">
+      </div>
+      <div class="plan-details" data-plan-name="Pro" data-plan-price="${prices.pro}">
+        <p>Pro</p>
+        <span>$${prices.pro}/${prices.duration}/mo</span>
+      </div>
+    </div>
+  `;
+  document.querySelector('.plans').innerHTML = plansHTML;
+  getData();
+}
 
 function getData() {
   let chosenAddon = [];
@@ -188,20 +260,7 @@ function getData() {
     });
 
     submittedData.selectedAddons = chosenAddon;
-  // console.log(submittedData.selectedAddons);
 
-  // if (checkBox.checked === true) {
-    // })
-
-
-    // checkBox.addEventListener('click', () => {
-    //   allAddons.forEach(el => el.classList.remove('selected'));
-
-    //   element.classList.add('selected');
-
-    //   planValue = element.querySelector('.plan-details');
-
-    // });
 
   });
 
@@ -216,88 +275,6 @@ function getData() {
     phoneNumber: userPhone.value,
   }
 }
-
-
-function calculateSummary() {
-
-  submittedData.selectedAddons.forEach((addonEl) => {
-    addonElHTML += `
-  <div class="selected-addons">
-    <div class="addon-name">
-      <h4>${addonEl.name}</h4>
-    </div>
-    <span class="plan-price">+$${addonEl.price}/mo</span>
-  </div>
-  `;
-
-    totalAmount = totalAmount + Number(addonEl.price);
-
-  });
-
-  totalAmount += Number(submittedData.planSelected.planPrice);
-
-
-  return [addonElHTML, totalAmount];
-}
-
-toggleCheck.addEventListener('click', () => {
-  planPrices = {
-    arcade: 9,
-    advance: 12,
-    pro: 15,
-    duration: 'mo',
-  }
-
-  if (toggleCheck.checked === true) {
-    planPrices = {
-      arcade: 100,
-      advance: 120,
-      pro: 150,
-      duration: 'yr',
-    };
-  }
-
-  renderPlans(planPrices);
-});
-
-function renderPlans(prices) {
-
-  let plansHTML = `
-    <div class="plan-option selected">
-      <div class="icon">
-        <img src="assets/images/icon-arcade.svg" alt="arcade">
-      </div>
-      <div class="plan-details" data-plan-name="Acarde" data-plan-price="9.0">
-        <p>Arcade</p>
-        <span>$${prices.arcade}/${prices.duration}</span>
-      </div>
-    </div>
-    <div class="plan-option">
-      <div class="icon">
-        <img src="assets/images/icon-advanced.svg" alt="arcade">
-      </div>
-      <div class="plan-details" data-plan-name="Advanced" data-plan-price="12.0">
-        <p>Advanced</p>
-        <span>$${prices.advance}/${prices.duration}/mo</span>
-      </div>
-    </div>
-    <div class="plan-option">
-      <div class="icon">
-        <img src="assets/images/icon-pro.svg" alt="pro">
-      </div>
-      <div class="plan-details" data-plan-name="Pro" data-plan-price="15.0">
-        <p>Pro</p>
-        <span>$${prices.pro}/${prices.duration}/mo</span>
-      </div>
-    </div>
-  `;
-
-  document.querySelector('.plans').innerHTML = plansHTML;
-}
-
-
-
-renderPlans(planPrices)
 
 
 
