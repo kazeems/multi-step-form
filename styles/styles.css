@@ -29,6 +29,9 @@ body {
   flex-direction: row;
 }
 
+.content-area .sidebar-mobile {
+  display: none;
+}
 .content-area .sidebar {
   width: 180px;
   background-image: url('/assets/images/bg-sidebar-desktop.svg');
@@ -160,6 +163,7 @@ span.step-title {
   color: #2F4A87;
   font-size: 14px;
   font-weight: 600;
+  pointer-events: none;
 }
 
 .plans {
@@ -408,4 +412,89 @@ hr {
   top: 95%;
   right: 50%;
   padding: 0 0 10px 0;
+}
+@media screen and (max-width: 600px) {
+  .container {
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+    overflow: hidden;
+    padding: 0px;
+    background-color: #77899c;
+  }
+
+  .content-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-items: space-around;
+  }
+
+  .content-area .sidebar {
+    border-radius: 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-image: url('/assets/images/bg-sidebar-mobile.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 0px;
+    padding: 35px 0px;
+    margin-top: -10px;
+  }
+
+  .item {
+    margin: 0 5px;
+    padding: 0px;
+    text-align: center;
+  }
+
+  .item .step {
+    display: none;
+  }
+
+  .item .number-icon {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    font-size: 20px;
+  }
+
+  .form-area {
+    position: absolute;
+    top: 15%;
+    left: 2%;
+    z-index: 1000;
+    width: 90%;
+    margin: 0px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 10px;
+    height: auto;
+  }
+
+  .form-element input {
+    width: 94%;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .footer {
+    width: 98%;
+    right: 10;
+  }
+
+  .summary-content,
+  .form-finish {
+    width: 90%;
+  }
+
+  .next_btn,
+  .previous_btn {
+    width: 120px;
+    height: 50px;
+    font-size: 16px;
+  }
 }

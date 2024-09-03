@@ -7,8 +7,8 @@ const toggleCheck = document.querySelector('.js-toggle-switch');
 let userName = document.getElementById('name');
 let userEmail = document.getElementById('email');
 let userPhone = document.getElementById('phone');
-let addonElHTML = '';
 let totalAmount = 0;
+let addonElHTML = '';
 let submittedData = {
   previousStep: 0,
   nextStep: 1,
@@ -52,24 +52,9 @@ nextBtn.addEventListener('click', () => {
 
   }
 
-
-
-  // console.log(submittedData);
-
-
 });
 
-// prevBtn.addEventListener('click', () => {
-//   // const stepIcon = document.querySelector(`.js-step-${submittedData.nextStep}`);
-
-//   const previousPage = Number(submittedData.previousStep);
-
-//   nextPage(0);
-
-// });
-
 function nextPage(nextElStep, prevElStep) {
-  // console.log(step);
 
   submittedData.previousStep += 1;
   submittedData.nextStep += 1;
@@ -88,14 +73,15 @@ function nextPage(nextElStep, prevElStep) {
 
   if (NextPageHTML.classList.contains('form-summary')) {
     let totalData = calculateSummary();
-    const htmol = document.querySelector('.summary-content');
-    document.querySelector('.summary-content').innerHTML += `<div class="wrapper">
+
+
+    document.querySelector('.summary-content').innerHTML = `<div class="wrapper">
       <div class="selected-plan">
         <div class="plan-name">
           <h3>${submittedData.planSelected.planName}</h3>
           <a href="">Change</a>
         </div>
-        <span class="plan-price">$${submittedData.planSelected.planPrice}/mo</span>
+        <span class="plan-price">$${submittedData.planSelected.planPrice}</span>
       </div>
       <hr class="divider">
       ${totalData[0]}
@@ -104,17 +90,21 @@ function nextPage(nextElStep, prevElStep) {
       <div class="addon-name">
         <h5>Total (per month)</h5>
       </div>
-      <span class="plan-price">+$${totalData[1]}/mo</span>
+      <span class="plan-price">+$${totalData[1]}</span>
     </div>
     `;
+
+    nextBtn.innerText = 'confirm'
+
   }
 
   prevPageHTML.style.display = 'none';
   prevPageHTML.style.pointerEvents = 'none'
   NextPageHTML.style.display = 'block';
   NextPageHTML.style.pointerEvents = 'all';
-  prevBtn.style.display = 'block';
   prevBtn.style.opacity = 100;
+  prevBtn.style.pointerEvents = 'all';
+
 
 
 
@@ -122,32 +112,32 @@ function nextPage(nextElStep, prevElStep) {
 
 }
 
-// nextBtn.addEventListener('click', () => {
-//   // console.log(submittedData);
 
-//   nextPage(submittedData.step);
-// });
 
 
 function calculateSummary() {
-
+  let price = 0;
   submittedData.selectedAddons.forEach((addonEl) => {
-    addonElHTML += `
-  <div class="selected-addons">
-    <div class="addon-name">
-      <h4>${addonEl.name}</h4>
+    if (submittedData.selectedAddons.includes(addonEl)) {
+      addonElHTML += `
+    <div class="selected-addons">
+      <div class="addon-name">
+        <h4>${addonEl.name}</h4>
+      </div>
+      <span class="plan-price">+$${addonEl.price}/mo</span>
     </div>
-    <span class="plan-price">+$${addonEl.price}/mo</span>
-  </div>
-  `;
+    `;
 
-    totalAmount = totalAmount + Number(addonEl.price);
 
+    }
+
+    price = Number(addonEl.price);
+    totalAmount += price;
   });
 
-  totalAmount += Number(submittedData.planSelected.planPrice);
-
-
+  totalAmount = price + Number(submittedData.planSelected.planPrice);
+  // console.log(totalAmount);
+  price = 0;
   return [addonElHTML, totalAmount];
 }
 
@@ -167,10 +157,9 @@ toggleCheck.addEventListener('click', () => {
       pro: 150,
       duration: 'yr',
     };
-
-    getData();
   }
 
+  getData();
 
   renderPlans(planPrices);
 });
@@ -192,7 +181,7 @@ function renderPlans(prices) {
       </div>
       <div class="plan-details" data-plan-name="Advanced" data-plan-price="${prices.advance}">
         <p>Advanced</p>
-        <span>$${prices.advance}/${prices.duration}/mo</span>
+        <span>$${prices.advance}/${prices.duration}</span>
       </div>
     </div>
     <div class="plan-option">
@@ -201,7 +190,7 @@ function renderPlans(prices) {
       </div>
       <div class="plan-details" data-plan-name="Pro" data-plan-price="${prices.pro}">
         <p>Pro</p>
-        <span>$${prices.pro}/${prices.duration}/mo</span>
+        <span>$${prices.pro}/${prices.duration}</span>
       </div>
     </div>
   `;
@@ -210,10 +199,17 @@ function renderPlans(prices) {
 }
 
 function getData() {
+  let existingPlan;
   let chosenAddon = [];
   let addonItem = {};
   let planValue = '';
   const elements = document.querySelectorAll('.plan-option');
+
+  if (existingPlan) {
+    if (existingPlan.planName != submittedData.planSelected.planName) {
+      delete submittedData.planSelected;
+    }
+  }
 
   elements.forEach(element => {
     if (element.classList.contains('selected')) {
@@ -240,12 +236,13 @@ function getData() {
       checkBox.addEventListener('click', () => {
         if (checkBox.checked === true) {
           checkBox.checked = false;
+
         } else if (checkBox.checked === false) {
           checkBox.checked = true;
-          const addonDetails = addon.querySelector('.ad-name').innerText;
-          const addonPrice = addon.querySelector('.price').innerText;
+          let addonDetails = addon.querySelector('.ad-name').innerText;
+          let addonPrice = addon.querySelector('.price').innerText;
 
-          const addonPriceArray = Array.from(addonPrice);
+          let addonPriceArray = Array.from(addonPrice);
 
           addonItem = {
             name: addonDetails,
@@ -256,11 +253,11 @@ function getData() {
 
 
         }
+
       });
     });
 
     submittedData.selectedAddons = chosenAddon;
-
 
   });
 
@@ -269,12 +266,52 @@ function getData() {
     planPrice: planValue.dataset.planPrice,
   }
 
+  existingPlan = submittedData.planSelected;
+
   submittedData.data = {
     userName: userName.value,
     emailAddress: userEmail.value,
     phoneNumber: userPhone.value,
   }
 }
+
+function goBack() {
+  summaryText = '';
+
+  const previousPageNo = submittedData.previousStep;
+  const currentPageNo = submittedData.nextStep;
+
+  submittedData.previousStep -= 1;
+  submittedData.nextStep -= 1;
+
+  const prevPageElClass = children[previousPageNo - 1].classList[0];
+  const currentPageElClass = children[currentPageNo - 1].classList[0];
+
+  const prevPageElHTML = document.querySelector(`.${prevPageElClass}`);
+  const currentPageElHTML = document.querySelector(`.${currentPageElClass}`);
+
+  let prevStepIconHTML = document.querySelector(`.js-step-${previousPageNo}`);
+  let currentStepIconHTML = document.querySelector(`.js-step-${currentPageNo}`);
+
+  prevStepIconHTML.classList.add('active');
+  currentStepIconHTML.classList.remove('active');
+
+  prevPageElHTML.style.display = 'block';
+  prevPageElHTML.style.pointerEvents = 'all'
+  currentPageElHTML.style.display = 'none';
+  currentPageElHTML.style.pointerEvents = 'none';
+  if (currentPageElClass === 'select-plan') {
+    prevBtn.style.opacity = 0;
+    prevBtn.style.pointerEvents = 'none';
+  }
+
+
+  getData();
+
+}
+
+
+
 
 
 
