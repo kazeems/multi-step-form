@@ -93,8 +93,9 @@ function nextPage(nextElStep, prevElStep) {
       <span class="plan-price">+$${totalData[1]}</span>
     </div>
     `;
-
+    if (submittedData.currentPage == submittedData.nextStep) {
     nextBtn.innerText = 'confirm'
+    }
 
   }
 
@@ -277,12 +278,15 @@ function getData() {
 
 function goBack() {
   summaryText = '';
+  console.log(submittedData);
+
 
   const previousPageNo = submittedData.previousStep;
   const currentPageNo = submittedData.nextStep;
 
   submittedData.previousStep -= 1;
   submittedData.nextStep -= 1;
+  submittedData.currentPage = previousPageNo;
 
   const prevPageElClass = children[previousPageNo - 1].classList[0];
   const currentPageElClass = children[currentPageNo - 1].classList[0];
