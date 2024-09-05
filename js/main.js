@@ -17,41 +17,64 @@ let submittedData = {
 prevBtn.style.opacity = 0;
 prevBtn.style.pointerEvents = 'none';
 
-function validateForm(input, elName) {
-  let labelHTML = document.querySelector('.label-el').innerHTML;
-  let errorHTML = document.querySelector(`.error-${elName}`);
 
-  if (!input.value) {
-    errorHTML.innerHTML = 'This field is required';
-    return false;
-  } else {
-    errorHTML.innerHTML = '';
-    return true;
-  }
+function validateForm() {
+  const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let isValid = false; // Track form validity
+
+  document.querySelectorAll('.form-element').forEach((el) => {
+    let errorSpan = el.querySelector('span');
+    let y = el.querySelector('input');
+    let x = y.value;
+
+    errorSpan.innerText = ''; // Clear any previous error message
+
+    if (x === "") {
+      errorSpan.innerText = 'This field is required';
+      isValid = false; // Set invalid
+    } else if (x.length <= 5) {
+      errorSpan.innerText = 'Please enter at least 6 characters.';
+      isValid = false; // Set invalid
+    }
+
+    if (y.name == 'email') {
+      if (x.match(validRegex)) {
+        errorSpan.innerText = '';
+        isValid = true;
+      } else {
+        errorSpan.innerText = 'Please enter a valid email';
+        isValid = false
+      }
+    }
+  });
+
+  return isValid; // Return whether form is valid
 }
 
 nextBtn.addEventListener('click', () => {
+  if (validateForm()) {
 
-  const previous = submittedData.previousStep + 1;
-  const nextSt = submittedData.nextStep + 1;
+    const previous = submittedData.previousStep + 1;
+    const nextSt = submittedData.nextStep + 1;
 
-  if (nextSt !== children.length) {
-    nextPage(nextSt, previous);
-  } else {
-    const summaryClass = children[children.length - 2].classList[0];
-    const summaryHTML = document.querySelector(`.${summaryClass}`);
+    if (nextSt !== children.length) {
+      nextPage(nextSt, previous);
+    } else {
+      const summaryClass = children[children.length - 2].classList[0];
+      const summaryHTML = document.querySelector(`.${summaryClass}`);
 
-    summaryHTML.style.display = 'none';
-    nextBtn.style.opacity = 0;
-    nextBtn.style.pointerEvents = 'none';
-    prevBtn.style.opacity = 0;
-    prevBtn.style.pointerEvents = 'none';
+      summaryHTML.style.display = 'none';
+      nextBtn.style.opacity = 0;
+      nextBtn.style.pointerEvents = 'none';
+      prevBtn.style.opacity = 0;
+      prevBtn.style.pointerEvents = 'none';
 
 
-    formEnd.style.display = 'block';
+      formEnd.style.display = 'block';
+
+    }
 
   }
-
 });
 
 function nextPage(nextElStep, prevElStep) {

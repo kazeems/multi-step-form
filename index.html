@@ -55,23 +55,23 @@
               <div class="form-element">
                 <div class="label-el">
                   <label for="phone">Name</label>
-                  <span class="error-name"></span>
+                  <span class="error"></span>
                 </div>
-                <input type="text" id="name" placeholder="e.g. Stephen King" required>
+                <input type="text" id="name" name="fname" placeholder="e.g. Stephen King">
               </div>
               <div class="form-element">
                 <div class="label-el">
                   <label for="phone">Email Address</label>
-                  <span class="error-email"></span>
+                  <span class="error"></span>
                 </div>
-                <input type="email" id="email" placeholder="e.g. stephenking@lorem.com" required>
+                <input type="email" id="email" name="email" placeholder="e.g. stephenking@lorem.com">
               </div>
               <div class="form-element">
                 <div class="label-el">
                   <label for="phone">Phone Number</label>
-                  <span class="error-phone"></span>
+                  <span class="error"></span>
                 </div>
-                <input id="phone" type="tel" placeholder="e.g. +1 234 567 890" required>
+                <input id="phone" name="phonenumber" type="tel" placeholder="e.g. +1 234 567 890" required>
               </div>
             </div>
           </div>
@@ -190,7 +190,7 @@
           </div>
           <!-- Thank you -->
           <div class="footer">
-            <button type="submit" class="previous_btn js-back-btn" onclick="goBack()">Go Back</button>
+            <button type="button" class="previous_btn js-back-btn" onclick="goBack()">Go Back</button>
             <button type="button" class="next_btn js-next-btn">Next Step</button>
             </div>
             </div>
